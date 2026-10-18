@@ -316,7 +316,7 @@ button.btn{font-family:inherit;cursor:pointer}
 
 <footer>
   <div class="wrap">
-    <p><b>Ana Martins</b> · <a href="https://www.instagram.com/anamartinssnutri/">Instagram</a> · <a href="https://figadogordo.vercel.app/privacidade">Política de Privacidade</a> · <a href="https://figadogordo.vercel.app/termos">Termos de Utilização</a> · <a href="#" id="gerir-cookies">Gerir cookies</a></p>
+    <p><b>Ana Martins</b> · <a href="https://www.instagram.com/anamartinssnutri/">Instagram</a> · <a href="https://figadogordo.vercel.app/privacidade">Política de Privacidade</a> · <a href="https://figadogordo.vercel.app/termos">Termos de Utilização</a></p>
     <p>O e-book Programa Fígado Livre tem caráter meramente informativo. Embora as orientações sejam apoiadas por investigação científica, o conteúdo não substitui o aconselhamento de profissionais de saúde e não deve ser utilizado para tratar doenças. Se tem uma doença ou pretende iniciar uma dieta para reduzir a gordura no fígado, consulte o seu médico antes de começar. Os resultados variam de pessoa para pessoa.</p>
     <p>© 2026 Ana Martins. Todos os direitos reservados.</p>
   </div>
@@ -334,35 +334,16 @@ button.btn{font-family:inherit;cursor:pointer}
   setInterval(atualizar,60000);
 })();
 </script>
-<div id="cookies" role="dialog" aria-label="Aviso de cookies" hidden>
-  <div class="in">
-    <p>Utilizamos cookies para medir o desempenho da página e apresentar anúncios mais relevantes (Meta Pixel). Pode aceitar ou recusar. Saiba mais na nossa <a href="https://figadogordo.vercel.app/privacidade">Política de Privacidade</a>.</p>
-    <div class="acts"><button type="button" class="btn small" id="ck-aceitar">Aceitar</button><button type="button" class="btn small alt" id="ck-recusar">Recusar</button></div>
-  </div>
-</div>
 <script>
-(function(){
-  var PID='1816762136406521',KEY='cookie-consent',bar=document.getElementById('cookies');
-  function get(){try{return localStorage.getItem(KEY)}catch(e){return null}}
-  function set(v){try{localStorage.setItem(KEY,v)}catch(e){}}
-  function loadPixel(){
-    if(window.fbq)return;
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init',PID);fbq('track','PageView');
-  }
-  function aceitar(){set('granted');bar.hidden=true;if(window.fbq){fbq('consent','grant')}else{loadPixel()}}
-  function recusar(){set('denied');bar.hidden=true;if(window.fbq){fbq('consent','revoke')}}
-  document.getElementById('ck-aceitar').addEventListener('click',aceitar);
-  document.getElementById('ck-recusar').addEventListener('click',recusar);
-  document.getElementById('gerir-cookies').addEventListener('click',function(e){e.preventDefault();bar.hidden=false});
-  var c=get();
-  if(c==='granted'){loadPixel()}else if(c!=='denied'){bar.hidden=false}
-  // InitiateCheckout: só dispara se o pixel estiver carregado (ou seja, com consentimento)
-  document.addEventListener('click',function(e){
-    var a=e.target.closest&&e.target.closest('a[href*="pay.hotmart.com"]');
-    if(a&&window.fbq){fbq('track','InitiateCheckout',{value:14.90,currency:'EUR',content_name:'Programa Fígado Livre'})}
-  });
-})();
+// Meta Pixel: carrega sempre, sem depender de consentimento
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1816762136406521');
+fbq('track','PageView');
+// InitiateCheckout: dispara ao clicar em qualquer botão que leva ao checkout da Hotmart
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href*="pay.hotmart.com"]');
+  if(a&&window.fbq){fbq('track','InitiateCheckout',{value:14.90,currency:'EUR',content_name:'Programa Fígado Livre'});}
+});
 </script>
 </body>
 </html>
